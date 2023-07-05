@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Toolbar, Typography, Box, Container, IconButton, Drawer, List, ListItem, ListItemText, ListItemIcon, useMediaQuery, useTheme } from '@mui/material';
 import { Menu, Brightness4, Brightness7, Settings, Info, ContactMail, Home } from '@mui/icons-material';
+import HiveIcon from '@mui/icons-material/Hive';
+import BlogCard from './Components/BlogCard'
+import { CustomStyles } from './Styles/Styles';
 
 const App = () => {
   const [open, setOpen] = useState(false);
@@ -10,60 +13,37 @@ const App = () => {
   const forClick = () => {
     setOpen(!open);
   };
-
   return (
     <React.Fragment>
-      <Container maxWidth="xl">
+      <Box>
         <Toolbar>
-          {forScreenWidth ? 
-            <IconButton color="inherit" onClick={forClick} edge="start" sx={{ mr: 2 }} >
+          {forScreenWidth ?
+            <IconButton onClick={forClick} edge="start" >
               <Menu />
             </IconButton>
-           :
-            <Box sx={{ mr: 2 }} />
+            :
+            ''
           }
-          <Typography component="div">
-          <Home />HEXA
-          </Typography>
+            <HiveIcon sx={{width:32,height:32,cursor:'pointer'}} /><Typography sx={{fontFamily: 'Montserrat',fontWeight:'800',cursor:'pointer',fontSize:'20px'}}>HEXA</Typography>
           <Box sx={{ flexGrow: 1 }} />
           {!forScreenWidth && (
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Box sx={{ mx: 2 }}>
-                <Typography variant="subtitle1" component="div">
-                  <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>Service</a>
-                </Typography>
-              </Box>
-              <Box sx={{ mx: 2 }}>
-                <Typography variant="subtitle1" component="div">
-                  <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>Blog</a>
-                </Typography>
-              </Box>
-              <Box sx={{ mx: 2 }}>
-                <Typography variant="subtitle1" component="div">
-                  <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>About</a>
-                </Typography>
-              </Box>
+              <Typography sx={{ ...CustomStyles.navLink }}>Service</Typography>
+              <Typography sx={{ ...CustomStyles.navLink }}>Blog</Typography>
+              <Typography sx={{ ...CustomStyles.navLink }}>About</Typography>
             </Box>
           )}
           <Box sx={{ flexGrow: 1 }} />
-          <Box>
+          {/* <Box>
             <IconButton color="inherit">
               <Brightness4 />
             </IconButton>
-          </Box>
-          <Box sx={{ mx: 1 }}>
-            <Typography variant="subtitle1" component="div">
-              <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>Log in</a>
-            </Typography>
-          </Box>
-          <Box sx={{ mx: 1 }}>
-            <Typography variant="subtitle1" component="div">
-              <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>Contact</a>
-            </Typography>
-          </Box>
+          </Box> */}
+          <Typography sx={{ ...CustomStyles.btnNav }}>Log in</Typography>
+          <Typography sx={{ ...CustomStyles.btnNav }}>Contact</Typography>
         </Toolbar>
-      </Container>
-      {forScreenWidth && 
+      </Box>
+      {forScreenWidth &&
         <Drawer anchor="left" open={open} onClose={forClick} >
           <List sx={{ width: 280 }}>
             <ListItem>
@@ -80,7 +60,7 @@ const App = () => {
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <Info/>
+                <Info />
               </ListItemIcon>
               <ListItemText primary="Blog" />
             </ListItem>
@@ -93,8 +73,9 @@ const App = () => {
           </List>
         </Drawer>
       }
+      <BlogCard />
     </React.Fragment>
-  );
+  )
 }
 
-export default App;
+export default App
